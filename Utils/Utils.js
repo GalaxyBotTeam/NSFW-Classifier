@@ -13,7 +13,6 @@ const logLevel = {
 const logModule = {
     ERROR:              " [ "+ chalk.red("ERROR") +" ]    ",
     WEBSERVER:          " [ "+ chalk.bold.magenta("WebServer") +" ]",
-    DATABASE:           " [ "+ chalk.bold.cyan("DATABASE") +" ] ",
     GALAXYBOT:          " [ "+ chalk.bold.blue("GalaxyBot") +" ]",
     NSFW:               " [ "+ chalk.bold.yellow("NSFW") +" ]     ",
     MinIO:              " [ "+ chalk.bold.red("MinIO") +" ]    ",

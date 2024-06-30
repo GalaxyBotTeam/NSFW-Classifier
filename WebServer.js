@@ -31,8 +31,15 @@ class WebServer {
         //
         //Routes
         //
+
+        // Body = {key: "key", metaData: {userID: "userID", guildID: "guildID"}, deleteByClassification: true}
+        // Key must be an object key from the S3 Bucket
+        //
+        // ID's in metaData are Discord snowflakes for de Logging Channel
         app.post("/api/v1/classifyImage", checkHost, (req, res) => {
+            // Check if all required parameters are given
             if (req.body.key && req.body.metaData.userID && req.body.metaData.guildID && req.body.deleteByClassification != null){
+                // Call the ImageClassificationHandler
                 imageClassificationHandler.classifyImage(req.body.key, req.body.metaData, req.body.deleteByClassification).then((results) => {
                     res.status(200)
                     res.write(JSON.stringify(results))
@@ -55,6 +62,7 @@ class WebServer {
         });
 
 
+        //Start the WebServer
         app.listen(port, () => {
             Utils.log(logLevel.SUCCESS, logModule.WEBSERVER, "WebServer started on port " + port)
         });
@@ -63,6 +71,14 @@ class WebServer {
         //
         // Middleware
         //
+        /**
+         * Check the Host Header
+         * @param req - Request Object from Express
+         * @param res - Response Object from Express
+         * @param next - Next Function from Express
+         *
+         * We use this function to check if the request is coming from the right host for security reasons you can remove this if you want
+         */
         function checkHost(req, res, next) {
             // Localhost == Testing with Insomnia
             // 172.18.0.1 == Bot

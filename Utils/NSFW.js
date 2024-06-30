@@ -1,10 +1,14 @@
-const {ErrorHandler} = require("../Handler/ErrorHandler.js");
 const {Utils, logLevel, logModule} = require("./Utils.js");
 const nsfwjs = require('nsfwjs');
 
 let nsfw = null;
 
 class NSFW {
+    /**
+     * Initialize the NSFW Model
+     * @param model {String} The model to load
+     * @returns {Promise<void>}
+     */
     async init(model) {
         Utils.log(logLevel.INFO, logModule.NSFW, "Loading NSFW Model");
         this.nsfw = await nsfwjs.load(model);
