@@ -7,7 +7,7 @@ const {MinIO} = require("./Utils/MinIO");
 const {NSFW} = require("./Utils/NSFW");
 
 console.log("Ready!")
-exec("cls", async (err, output) => {
+exec("clear", async (err, output) => {
     // once the command has completed, the callback function is called
     if (err) {
         // log and return if we encounter an error
