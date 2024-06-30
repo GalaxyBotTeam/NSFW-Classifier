@@ -1,4 +1,3 @@
-const {ErrorHandler} = require("../Handler/ErrorHandler.js");
 const {Utils, logLevel, logModule} = require("./Utils.js");
 const config = require("../config.json");
 const minio = require('minio');

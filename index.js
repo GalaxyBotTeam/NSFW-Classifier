@@ -1,25 +1,22 @@
-const { exec } = require("child_process");
 const WebServer = require('./WebServer.js');
 const config = require("./config.json");
 const {Utils, logLevel, logModule} = require("./Utils/Utils");
-const {Min} = require("@tensorflow/tfjs-node");
 const {MinIO} = require("./Utils/MinIO");
 const {NSFW} = require("./Utils/NSFW");
 
-console.log("Ready!")
-exec("cls", async (err, output) => {
-    // once the command has completed, the callback function is called
-    if (err) {
-        // log and return if we encounter an error
-        console.error("could not execute command: ", err)
-        return
-    }
-    // log the output received from the command
-    console.log(output)
+async function start() {
     Utils.log(logLevel.INFO, logModule.GALAXYBOT, "Starting GalaxyBot V4 - NSFW Classifier");
-
     new MinIO(config);
     await new NSFW().init(config.nsfw.model);
     new WebServer().start();
-})
+}
+
+start().then(() => {
+    // Ready for Pterodactyl JS Egg
+    console.log("Ready!")
+    Utils.log(logLevel.SUCCESS, logModule.GALAXYBOT, "GalaxyBot V4 - NSFW Classifier started");
+}).catch((e) => {
+    Utils.log(logLevel.ERROR, logModule.GALAXYBOT, e);
+    process.exit(1);
+});
 
