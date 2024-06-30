@@ -1,0 +1,16 @@
+{
+  "debug": true,
+  "webServer": {
+    "port": 10082
+  },
+  "s3": {
+    "endPoint": "172.18.0.1",
+    "port": 10081,
+    "bucket": "media",
+    "accessKey": "",
+    "secretKey": ""
+  },
+  "nsfw": {
+    "model": "MobileNetV2"
+  }
+}
