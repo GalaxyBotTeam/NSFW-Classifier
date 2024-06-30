@@ -1,4 +1,21 @@
 {
+  "name": "nsfw-classifier",
+  "version": "1.0.0",
+  "description": "NSFW classifier using NSFWJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GalaxyBotTeam/NSFW-Classifier.git"
+  },
+  "author": "GalaxyBot Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GalaxyBotTeam/NSFW-Classifier/issues"
+  },
+  "homepage": "https://galaxybot.app",
   "dependencies": {
     "@tensorflow/tfjs-node": "^4.20.0",
     "axios": "^1.7.2",
