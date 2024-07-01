@@ -121,7 +121,9 @@ class ImageClassificationHandler {
         };
 
         // Send the embed to the Discord Webhook
-        Utils.sendDiscordWebhook(config.discord.webhook, embedData);
+        if (isNSFW && !isSexyButNotExplicit) {
+            Utils.sendDiscordWebhook(config.discord.webhook, embedData);
+        }
 
         return {
             nsfw: isNSFW && !isSexyButNotExplicit,
