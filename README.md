@@ -58,6 +58,7 @@ The application provides a Webserver that listens for POST requests on the `/api
 ```json
 {
   "key": "your-s3-key", //The key of the image in the S3 bucket. The bucket is defined in the config file
+  "deleteOnClassification": false //Boolean, should the image automaticly deleted if nsfw has been detected?
   "metadata": {
     "userID": "userID", //Guild ID for Discord Log
     "guildID": "guildID" //User ID for Discord Log
