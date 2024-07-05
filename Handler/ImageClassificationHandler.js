@@ -84,7 +84,10 @@ class ImageClassificationHandler {
      */
     validateImageClassification(predictions, metaData, key, deleteImage = false) {
         const isNSFW = predictions[0].className !== "Neutral" && predictions[0].className !== "Drawing";
-        const isSexyButNotExplicit = predictions[0].className === "Sexy" && predictions[0].probability < 0.6;
+        const isSexyButNotExplicit =
+            (predictions[0].className === "Sexy" && predictions[0].probability < 0.6) ||
+            (predictions[0].probability < 0.6 && predictions[0].className !== "Neutral" && predictions[1].className === "Neutral");
+
         const shouldDeleteImage = deleteImage && isNSFW && !isSexyButNotExplicit;
 
         if (isNSFW && !isSexyButNotExplicit) {
