@@ -28,7 +28,7 @@ function sendPing() {
     setInterval(async () => {
         const options = {
             method: "GET",
-            url: "https://uptime.galaxybot.app/api/push/" + config.status.id,
+            url: config.status.kumaBase + "/api/push/" + config.status.id,
             qs: {
                 status: "up",
                 msg: "Meldet_sich_zum_Dienst",

@@ -18,6 +18,7 @@
   },
   "status": {
     "id": "",
+    "kumaBase": "https://uptime.example.com",
     "interval": 60000
   }
 }
