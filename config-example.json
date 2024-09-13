@@ -15,5 +15,9 @@
   },
   "discord": {
     "webhook": "https://discord.com/api/webhooks/1234567890/abcdefg"
+  },
+  "status": {
+    "id": "",
+    "interval": 60000
   }
 }
