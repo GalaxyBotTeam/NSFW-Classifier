@@ -1,4 +1,4 @@
-const {Utils, logLevel, logModule} = require("./Utils.js");
+const {Utils, logLevel, logModule} = require("./Utils.ts");
 const nsfwjs = require('nsfwjs');
 
 let nsfw = null;
@@ -25,6 +25,3 @@ class NSFW {
     }
 
 }
-
-
-module.exports = { NSFW };

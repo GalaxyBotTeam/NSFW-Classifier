@@ -35,7 +35,7 @@ npm install
 
 This project consists of two main components:
 
-1. `ImageClassificationHandler.js`: This handles the image classification process. It fetches an image from an S3 bucket, converts it into a TensorFlow tensor, classifies the image using the NSFW.js model, and validates the classification results.
+1. `ImageClassificationHandler.ts`: This handles the image classification process. It fetches an image from an S3 bucket, converts it into a TensorFlow tensor, classifies the image using the NSFW.js model, and validates the classification results.
 
 2. `NSFW.js`: This initializes the NSFW.js model and provides a method to get the model.
 

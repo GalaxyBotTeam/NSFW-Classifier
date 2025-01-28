@@ -1,14 +1,14 @@
-const cors = require("cors");
-const {Utils, logLevel, logModule} = require("./Utils/Utils");
-const config = require("./config.json");
-const { ImageClassificationHandler } = require("./Handler/ImageClassificationHandler");
-const {json} = require("express");
+import cors from "cors";
+import {Utils, logLevel, logModule} from "./Utils/Utils";
+import config from "./config.json";
+import {ImageClassificationHandler} from "./Handler/ImageClassificationHandler";
+import {json} from "express";
+import express, {NextFunction, Request, Response, Express} from "express";
 
-class WebServer {
+
+export class WebServer {
     start() {
         Utils.log(logLevel.INFO, logModule.WEBSERVER, "Starting Webserver");
-        const express = require('express');
-        const cors = require('cors');
 
         const app = express()
         const port = config.webServer.port
@@ -18,7 +18,7 @@ class WebServer {
         // Init Webserver for own requests
         //
         app.use(express.json())
-        app.use(cors(), (req, res, next) => {
+        app.use(cors(), (req: Request, res: Response, next: NextFunction) => {
             res.setHeader("X-Powered-By", "GalaxyBot")
             res.setHeader("Access-Control-Allow-Origin", "127.0.0.1");
             res.setHeader("Content-Type", "application/json");
@@ -36,7 +36,7 @@ class WebServer {
         // Key must be an object key from the S3 Bucket
         //
         // ID's in metaData are Discord snowflakes for de Logging Channel
-        app.post("/api/v1/classifyImage", checkHost, (req, res) => {
+        app.post("/api/v1/classifyImage", checkHost, (req: Request, res: Response) => {
             // Check if all required parameters are given
             if (req.body.key && req.body.metaData.userID && req.body.metaData.guildID && req.body.deleteByClassification != null){
                 // Call the ImageClassificationHandler
@@ -79,7 +79,7 @@ class WebServer {
          *
          * We use this function to check if the request is coming from the right host for security reasons you can remove this if you want
          */
-        function checkHost(req, res, next) {
+        function checkHost(req: Request, res: Response, next: NextFunction) {
             // Localhost == Testing with Insomnia
             // 172.18.0.1 == Bot
             if(req.headers.host === `localhost:${config.webServer.port}` || req.headers.host === `172.18.0.1:${config.webServer.port}`) {
@@ -93,5 +93,3 @@ class WebServer {
 
     }
 }
-
-module.exports = WebServer

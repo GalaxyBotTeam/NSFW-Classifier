@@ -2,9 +2,9 @@
   "name": "nsfw-classifier",
   "version": "1.0.0",
   "description": "NSFW classifier using NSFWJS",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.ts"
   },
   "repository": {
     "type": "git",
@@ -17,12 +17,21 @@
   },
   "homepage": "https://galaxybot.app",
   "dependencies": {
-    "@tensorflow/tfjs-node": "^4.20.0",
-    "axios": "^1.7.2",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "@tensorflow/tfjs-node-gpu": "^4.22.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/minio": "^7.1.0",
+    "axios": "1.7.9",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "minio": "^8.0.1",
-    "nsfwjs": "^4.1.0"
+    "express": "5.0.0",
+    "minio": "^8.0.4",
+    "nsfwjs": "^4.2.1",
+    "openai": "^4.80.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.7.3"
   }
 }
