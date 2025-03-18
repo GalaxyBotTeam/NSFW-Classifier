@@ -28,7 +28,8 @@
     "express": "5.0.0",
     "minio": "^8.0.4",
     "nsfwjs": "^4.2.1",
-    "openai": "^4.80.1"
+    "openai": "^4.80.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/bun": "latest",

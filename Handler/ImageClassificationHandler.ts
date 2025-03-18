@@ -1,6 +1,7 @@
 import {MinIO} from "../Utils/MinIO";
 import config from "../config.json";
 import openAI from "openai";
+import {Client} from "minio";
 
 type metaData = {
     userID: string,
@@ -9,7 +10,7 @@ type metaData = {
 
 export class ImageClassificationHandler {
     private readonly bucket: string;
-    private s3: any;
+    private readonly s3: Client;
     private openAI: any;
 
 
@@ -30,21 +31,47 @@ export class ImageClassificationHandler {
      * @returns {Promise<unknown>} - Returns the classification results
      */
     async classifyImage(key: string, metaData: metaData, deleteImage = false): Promise<unknown> {
-
         return new Promise(async (resolve, reject) => {
-            return await this.openAI.moderations.create({
-                model: "omni-moderation-latest",
-                input: [
-                    {
-                        type: "image_url",
-                        image_url: `https://s3.galaxybot.app/${this.bucket}/${key}`
-                    }
-                ]
-            }).then(async (data: any) => {
-                console.log(data)
-            })
+
+            this.s3.getObject(this.bucket, key).then(async (data) => {
+                const buffer = await this.streamToBuffer(data);
+
+                // Create a DataURI from the buffer depending on the file type
+                const dataURI = `data:image/${key.split(".")[1]};base64,${buffer.toString('base64')}`;
+
+                console.log(dataURI)
+
+                return await this.openAI.moderations.create({
+                    model: "omni-moderation-latest",
+                    input: [
+                        {
+                            type: "image_url",
+                            image_url: {
+                                url: dataURI
+                            }
+                        }
+                    ]
+                }).then(async (data: any) => {
+                    console.log(data)
+                }).catch((err: any) => {
+                    console.error(err)
+                })
+
+            }).catch((e) => {
+                reject(e);
+            });
+
         });
 
+    }
+
+    streamToBuffer(stream: any): Promise<Buffer> {
+        return new Promise((resolve, reject) => {
+            const chunks: any[] = [];
+            stream.on('data', (chunk: any) => chunks.push(chunk));
+            stream.on('error', reject);
+            stream.on('end', () => resolve(Buffer.concat(chunks)));
+        });
     }
 
     // /**
