@@ -1,6 +1,6 @@
-const chalk = require("chalk");
-const fs = require('fs');
-const axios = require("axios");
+import chalk from "chalk";
+import fs from 'fs';
+import axios from "axios";
 
 export const logLevel = {
     SUCCESS: " [ " + chalk.greenBright("SUCCESS") + " ]",                      // [ SUCCESS ]#
