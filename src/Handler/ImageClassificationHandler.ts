@@ -1,5 +1,5 @@
 import {MinIO} from "../Utils/MinIO";
-import config from "../config.json";
+import config from "../../config.json";
 import openAI from "openai";
 import {Client} from "minio";
 import {logLevel, logModule, Utils} from "../Utils/Utils";

@@ -1,5 +1,5 @@
 import {WebServer} from './WebServer';
-import config from "./config.json";
+import config from "../config.json";
 import {Utils, logLevel, logModule} from "./Utils/Utils";
 import {MinIO} from "./Utils/MinIO";
 

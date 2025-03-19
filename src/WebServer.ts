@@ -1,6 +1,6 @@
 import cors from "cors";
 import {Utils, logLevel, logModule} from "./Utils/Utils";
-import config from "./config.json";
+import config from "../config.json";
 import {ImageClassificationHandler} from "./Handler/ImageClassificationHandler";
 import {json} from "express";
 import express, {NextFunction, Request, Response, Express} from "express";
