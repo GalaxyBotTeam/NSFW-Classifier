@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "build": "tsc && cp config.json dist/",
+    "build": "tsc && node -e \"require('fs').copyFileSync('config.json', 'dist/config.json')\"",
     "start": "node dist/index.js"
   },
   "repository": {
