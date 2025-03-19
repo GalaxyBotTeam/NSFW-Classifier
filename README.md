@@ -2,7 +2,7 @@
 
 # GalaxyBot Image Classification
 
-This project is a TypeScript application that uses TensorFlow.js and NSFW.js for image classification. It's designed to detect and handle NSFW (Not Safe For Work) images uploaded to an S3 bucket.
+This project is a TypeScript application that uses the OpenAI Moderation API for image classification. It's designed to detect and handle NSFW (Not Safe For Work) images uploaded to an S3 bucket.
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Clone the repository
 ```bash
-git clone https://github.com/GalaxyBotTeam/NSFW-Classifier.git
+git clone https://github.com/GalaxyBotTeam/Image-Classifier.git
 ```
 
 2. Navigate to the project directory
