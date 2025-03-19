@@ -44,7 +44,6 @@ The application needs a configuration file to run. Create a `config.json` file i
 The content for the `config.json` is defined in the `config-example.json` file.
 
 We use MinIO as an S3-compatible object storage server. You can use any S3-compatible object storage server by changing the `s3` configuration in the `config.json` file.
-If you dont need a port for your s3 endpoint it can be set to null
 
 ### Building and Running the application
 
