@@ -10,8 +10,8 @@
     "accessKey": "",
     "secretKey": ""
   },
-  "nsfw": {
-    "model": "MobileNetV2"
+  "openAI": {
+    "key": "sk-**********"
   },
   "discord": {
     "webhook": "https://discord.com/api/webhooks/1234567890/abcdefg"

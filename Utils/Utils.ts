@@ -10,13 +10,28 @@ export const logLevel = {
     ERROR: " [ " + chalk.bgRed.bold.white("ERROR") + " ]  "     // [ ERROR ]  #
 
 }
-export const logModule = {
-    ERROR: " [ " + chalk.red("ERROR") + " ]    ",
-    WEBSERVER: " [ " + chalk.bold.magenta("WebServer") + " ]",
-    GALAXYBOT: " [ " + chalk.bold.blue("GalaxyBot") + " ]",
-    NSFW: " [ " + chalk.bold.yellow("NSFW") + " ]     ",
-    MinIO: " [ " + chalk.bold.red("MinIO") + " ]    ",
+
+const rawLogModules = {
+    WEBSERVER: chalk.bold.magenta("WebServer"),
+    GALAXYBOT: chalk.bold.blue("GalaxyBot"),
+    OPENAI: chalk.bold.cyan("OpenAI"),
+    MinIO: chalk.bold.red("MinIO"),
 }
+
+// Calculate the maximum length of the longest module name (without ANSI color codes)
+const maxLength = Math.max(
+    ...Object.values(rawLogModules).map(m => m.replace(/\x1B\[[0-9;]*m/g, "").length)
+);
+
+// Bring back typesafety by mapping the rawLogModules to a new object
+export const logModule: Record<keyof typeof rawLogModules, string> = Object.fromEntries(
+    Object.entries(rawLogModules).map(([key, value]) => {
+        const plainTextLength = value.replace(/\x1B\[[0-9;]*m/g, "").length;
+        const padding = " ".repeat(maxLength - plainTextLength);
+        return [key, ` [ ${value} ]${padding}`];
+    })
+) as Record<keyof typeof rawLogModules, string>;
+
 
 
 export class Utils {
