@@ -3,6 +3,7 @@ import config from "../../config.json";
 import openAI from "openai";
 import {Client} from "minio";
 import {logLevel, logModule, Utils} from "../Utils/Utils";
+import {WebServerResponse} from "../WebServer";
 
 type metaData = {
     userID: string,
@@ -60,7 +61,7 @@ export class ImageClassificationHandler {
      * @param deleteImage - Delete the image in S3 if it's NSFW
      * @returns {Promise<unknown>} - Returns the classification results
      */
-    async classifyImage(key: string, metaData: metaData, deleteImage = false): Promise<unknown> {
+    async classifyImage(key: string, metaData: metaData, deleteImage = false): Promise<WebServerResponse> {
         return new Promise(async (resolve, reject) => {
             Utils.log(logLevel.INFO, logModule.MinIO, `Downloading Image: ${key}`);
             this.s3.getObject(this.bucket, key).then(async (data) => {
@@ -102,28 +103,49 @@ export class ImageClassificationHandler {
                         }, deleteImage);
 
                         resolve({
-                            flagged: predictions.flagged,
-                            categories: predictions.categories,
-                            scores: predictions.category_scores,
-                            deletedImage: predictions.flagged && deleteImage
+                            status: 200,
+                            message: "Image Classified",
+                            data: {
+                                key: key,
+                                bucket: this.bucket,
+                                flagged: predictions.flagged,
+                                categories: predictions.categories,
+                                scores: predictions.category_scores,
+                                deletedImage: predictions.flagged && deleteImage
+                            }
                         })
                     } else {
                         reject({
-                            error: "No Results",
-                            message: "No results found from the OpenAI API"
+                            status: 500,
+                            message: "Error Classifying Image with OpenAI",
+                            data: {
+                                key: key,
+                                bucket: this.bucket,
+                                error: "No results found"
+                            }
                         })
                     }
                 }).catch((err: any) => {
                     Utils.log(logLevel.ERROR, logModule.OPENAI, err);
                     reject({
-                        error: "OpenAI Error",
-                        message: err
+                        status: 500,
+                        message: "Error Classifying Image with OpenAI",
+                        data: {
+                            key: key,
+                            bucket: this.bucket,
+                            error: err?.message
+                        }
                     })
                 })
             }).catch((e) => {
                 reject({
-                    error: "MinIO Error",
-                    message: e
+                    status: 404,
+                    message: "Image not found in S3 Bucket",
+                    data: {
+                        key: key,
+                        bucket: this.bucket,
+                        error: e?.message
+                    }
                 });
             });
 

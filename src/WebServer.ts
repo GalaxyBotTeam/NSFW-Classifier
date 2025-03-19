@@ -5,6 +5,11 @@ import {ImageClassificationHandler} from "./Handler/ImageClassificationHandler";
 import {json} from "express";
 import express, {NextFunction, Request, Response, Express} from "express";
 
+export type WebServerResponse = {
+    status: number,
+    message: string,
+    data: unknown
+}
 
 export class WebServer {
     start() {
@@ -45,20 +50,28 @@ export class WebServer {
                     res.write(JSON.stringify(results))
                     res.end()
                 }).catch((error) => {
-                    Utils.log(logLevel.ERROR, logModule.WEBSERVER, error?.message)
+                    Utils.log(logLevel.ERROR, logModule.WEBSERVER, "In Webserver", error?.message)
                     res.status(500)
                     res.write(JSON.stringify({
-                        "error": "Internal Server Error",
-                        "message": error?.message
+                        status: 500,
+                        message: "Internal Server Error",
+                        data: {
+                            error: error?.message
+                        }
                     }))
                     res.end()
                 })
             } else {
                 res.status(400)
-                res.write('{"error": "Missing Parameters"}')
+                res.write(JSON.stringify({
+                    status: 400,
+                    message: "Bad Request",
+                    data: {
+                        error: "Missing Parameters"
+                    }
+                }))
                 res.end()
             }
-
         });
 
 
