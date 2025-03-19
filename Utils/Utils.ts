@@ -16,6 +16,7 @@ const rawLogModules = {
     GALAXYBOT: chalk.bold.blue("GalaxyBot"),
     OPENAI: chalk.bold.cyan("OpenAI"),
     MinIO: chalk.bold.red("MinIO"),
+    WEBHOOK: chalk.bold.yellow("Webhook"),
 }
 
 // Calculate the maximum length of the longest module name (without ANSI color codes)
@@ -98,7 +99,7 @@ export class Utils {
 
         axios.request(options).then(function () {
         }).catch(function (error: any) {
-            console.error(error);
+            Utils.log(logLevel.ERROR, logModule.WEBHOOK, "Error sending Discord Webhook: " + error);
         });
     }
 
