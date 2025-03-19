@@ -35,9 +35,7 @@ npm install
 
 This project consists of two main components:
 
-1. `ImageClassificationHandler.js`: This handles the image classification process. It fetches an image from an S3 bucket, converts it into a TensorFlow tensor, classifies the image using the NSFW.js model, and validates the classification results.
-
-2. `NSFW.js`: This initializes the NSFW.js model and provides a method to get the model.
+1. `ImageClassificationHandler.ts`: This handles the image classification process. It fetches an image from an S3 bucket, converts it into a TensorFlow tensor, classifies the image using the NSFW.js model, and validates the classification results.
 
 ### Configuration
 The application needs a configuration file to run. Create a `config.json` file in the root directory of the project with the following content:
@@ -66,20 +64,43 @@ The application provides a Webserver that listens for POST requests on the `/api
 }
 ```
 #### Response:
-Returns a JSON object with the classification results. The `result` field indicates the classification result. The `data` field contains the classification probabilities for each category.
-In this example, the image is classified as `porn` with a probability of `0.8237768411636353`.
+Returns a JSON object with the classification results. The `flagged` field indicates the classification result. The `categories` and the `scores` field contains the classification probabilities for each category.
+In this example, the image is classified as `sexual` with a probability of `0.9849382780471674`.
+DeleteImage is true if the image has been deleted from the S3 bucket.
 ```json
 {
-  "nsfw": true,
-  "deletedImage": false,
-  "result": "porn",
-  "data": {
-    "porn": 0.8237768411636353,
-    "sexy": 0.16640673577785492,
-    "hentai": 0.006222452502697706,
-    "neutral": 0.003563188249245286,
-    "drawing": 0.00003067585203098133
-  }
+	"flagged": true,
+	"categories": {
+		"harassment": false,
+		"harassment/threatening": false,
+		"sexual": true,
+		"hate": false,
+		"hate/threatening": false,
+		"illicit": false,
+		"illicit/violent": false,
+		"self-harm/intent": false,
+		"self-harm/instructions": false,
+		"self-harm": false,
+		"sexual/minors": false,
+		"violence": false,
+		"violence/graphic": false
+	},
+	"scores": {
+		"harassment": 0,
+		"harassment/threatening": 0,
+		"sexual": 0.9849382780471674,
+		"hate": 0,
+		"hate/threatening": 0,
+		"illicit": 0,
+		"illicit/violent": 0,
+		"self-harm/intent": 0.0002785803623326577,
+		"self-harm/instructions": 0.0002318797868593433,
+		"self-harm": 0.004690984132226771,
+		"sexual/minors": 0,
+		"violence": 0.12459626487974881,
+		"violence/graphic": 0.002384378805524485
+	},
+	"deletedImage": true
 }
 ```
 
