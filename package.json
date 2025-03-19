@@ -1,8 +1,6 @@
 {
-  "name": "nsfw-classifier",
-  "version": "2.0.0",
-  "description": "NSFW classifier using NSFWJS",
   "name": "image-classifier",
+  "version": "2.0.2",
   "description": "Image classifier using OpenAI Moderation API",
   "main": "src/index.ts",
   "scripts": {
