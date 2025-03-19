@@ -2,6 +2,8 @@
   "name": "nsfw-classifier",
   "version": "2.0.0",
   "description": "NSFW classifier using NSFWJS",
+  "name": "image-classifier",
+  "description": "Image classifier using OpenAI Moderation API",
   "main": "src/index.ts",
   "scripts": {
     "dev": "ts-node src/index.ts",
@@ -10,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GalaxyBotTeam/NSFW-Classifier.git"
+    "url": "git+https://github.com/GalaxyBotTeam/Image-Classifier.git"
   },
   "author": "GalaxyBot Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/GalaxyBotTeam/NSFW-Classifier/issues"
+    "url": "https://github.com/GalaxyBotTeam/Image-Classifier.git/issues"
   },
   "homepage": "https://galaxybot.app",
   "dependencies": {
