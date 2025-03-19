@@ -5,6 +5,7 @@
   },
   "s3": {
     "endPoint": "s3.example.com",
+    "useSSL": true,
     "port": 4242,
     "bucket": "media",
     "accessKey": "",

@@ -87,20 +87,20 @@ export class ImageClassificationHandler {
                         const predictions = data.results[0];
                         Utils.log(logLevel.INFO, logModule.OPENAI, `Image has ${predictions.flagged ? "been flagged" : "not been flagged"} as NSFW`);
 
-                        if (deleteImage) {
-                            if (predictions.flagged) {
+                        if (predictions.flagged) {
+                            if (deleteImage) {
                                 // Delete the image from the S3 Bucket
                                 this.s3.removeObject(this.bucket, key).then(() => {
                                     Utils.log(logLevel.INFO, logModule.MinIO, `Deleted Image by classification: ${key}`);
                                 });
                             }
-                        }
 
-                        this.logToDiscord(metaData, key, {
-                            flagged : predictions.flagged,
-                            categories: predictions.categories,
-                            scores: predictions.category_scores,
-                        }, deleteImage);
+                            this.logToDiscord(metaData, key, {
+                                flagged : predictions.flagged,
+                                categories: predictions.categories,
+                                scores: predictions.category_scores,
+                            }, deleteImage);
+                        }
 
                         resolve({
                             status: 200,
@@ -138,6 +138,7 @@ export class ImageClassificationHandler {
                     })
                 })
             }).catch((e) => {
+                console.log(e)
                 reject({
                     status: 404,
                     message: "Image not found in S3 Bucket",
