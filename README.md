@@ -2,8 +2,7 @@
 
 # GalaxyBot Image Classification
 
-
-This project is a Node.js application that uses TensorFlow.js and NSFW.js for image classification. It's designed to detect and handle NSFW (Not Safe For Work) images uploaded to an S3 bucket.
+This project is a TypeScript application that uses TensorFlow.js and NSFW.js for image classification. It's designed to detect and handle NSFW (Not Safe For Work) images uploaded to an S3 bucket.
 
 ## Getting Started
 
@@ -11,8 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- Node.js
-- npm
+- Node.js or Bun
+- npm (or Bun)
+- TypeScript
 
 ### Installing
 
@@ -29,6 +29,8 @@ cd your-project-directory
 3. Install the dependencies
 ```bash
 npm install
+# OR using Bun
+bun install
 ```
 
 ## Usage
@@ -42,11 +44,40 @@ The application needs a configuration file to run. Create a `config.json` file i
 The content for the `config.json` is defined in the `config-example.json` file.
 
 We use MinIO as an S3-compatible object storage server. You can use any S3-compatible object storage server by changing the `s3` configuration in the `config.json` file.
+If you dont need a port for your s3 endpoint it can be set to null
 
-### Running the application
-Start the application by running the following command:
+### Building and Running the application
+
+#### Using npm
+Build the TypeScript files:
 ```bash
-  npm start
+npm run build
+```
+
+Start the application:
+```bash
+npm start
+```
+
+Development mode (with auto-reloading):
+```bash
+npm run dev
+```
+
+#### Using Bun
+Build the TypeScript files:
+```bash
+bun run build
+```
+
+Start the application:
+```bash
+bun start
+```
+
+Development mode (with auto-reloading):
+```bash
+bun run dev
 ```
 
 ### Classifying an image
@@ -69,38 +100,38 @@ In this example, the image is classified as `sexual` with a probability of `0.98
 DeleteImage is true if the image has been deleted from the S3 bucket.
 ```json
 {
-	"flagged": true,
-	"categories": {
-		"harassment": false,
-		"harassment/threatening": false,
-		"sexual": true,
-		"hate": false,
-		"hate/threatening": false,
-		"illicit": false,
-		"illicit/violent": false,
-		"self-harm/intent": false,
-		"self-harm/instructions": false,
-		"self-harm": false,
-		"sexual/minors": false,
-		"violence": false,
-		"violence/graphic": false
-	},
-	"scores": {
-		"harassment": 0,
-		"harassment/threatening": 0,
-		"sexual": 0.9849382780471674,
-		"hate": 0,
-		"hate/threatening": 0,
-		"illicit": 0,
-		"illicit/violent": 0,
-		"self-harm/intent": 0.0002785803623326577,
-		"self-harm/instructions": 0.0002318797868593433,
-		"self-harm": 0.004690984132226771,
-		"sexual/minors": 0,
-		"violence": 0.12459626487974881,
-		"violence/graphic": 0.002384378805524485
-	},
-	"deletedImage": true
+ "flagged": true,
+ "categories": {
+  "harassment": false,
+  "harassment/threatening": false,
+  "sexual": true,
+  "hate": false,
+  "hate/threatening": false,
+  "illicit": false,
+  "illicit/violent": false,
+  "self-harm/intent": false,
+  "self-harm/instructions": false,
+  "self-harm": false,
+  "sexual/minors": false,
+  "violence": false,
+  "violence/graphic": false
+ },
+ "scores": {
+  "harassment": 0,
+  "harassment/threatening": 0,
+  "sexual": 0.9849382780471674,
+  "hate": 0,
+  "hate/threatening": 0,
+  "illicit": 0,
+  "illicit/violent": 0,
+  "self-harm/intent": 0.0002785803623326577,
+  "self-harm/instructions": 0.0002318797868593433,
+  "self-harm": 0.004690984132226771,
+  "sexual/minors": 0,
+  "violence": 0.12459626487974881,
+  "violence/graphic": 0.002384378805524485
+ },
+ "deletedImage": true
 }
 ```
 

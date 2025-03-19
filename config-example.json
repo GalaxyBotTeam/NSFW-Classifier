@@ -4,8 +4,8 @@
     "port": 10082
   },
   "s3": {
-    "endPoint": "172.18.0.1",
-    "port": 10081,
+    "endPoint": "s3.example.com",
+    "port": null,
     "bucket": "media",
     "accessKey": "",
     "secretKey": ""
